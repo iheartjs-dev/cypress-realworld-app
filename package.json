@@ -166,11 +166,6 @@
       "<rootDir>/data/database-seed.json"
     ]
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn types"
-    }
-  },
   "browserslist": {
     "production": [
       ">0.2%",

@@ -13,7 +13,8 @@ context('Files', () => {
   beforeEach(() => {
     // load example.json fixture file and store
     // in the test context object
-    cy.fixture('example.json').as('example')
+    cy.fixture('example.json')
+      .as('example')
   })
 
   it('cy.fixture() - load a fixture', () => {
@@ -23,40 +24,50 @@ context('Files', () => {
     // use a fixture file's content.
 
     cy.server()
-    cy.fixture('example.json').as('comment')
+    cy.fixture('example.json')
+      .as('comment')
     // when application makes an Ajax request matching "GET comments/*"
     // Cypress will intercept it and reply with object
     // from the "comment" alias
-    cy.route('GET', 'comments/*', '@comment').as('getComment')
+    cy.route('GET', 'comments/*', '@comment')
+      .as('getComment')
 
     // we have code that gets a comment when
     // the button is clicked in scripts.js
-    cy.get('.fixture-btn').click()
+    cy.get('.fixture-btn')
+      .click()
 
-    cy.wait('@getComment').its('responseBody')
+    cy.wait('@getComment')
+      .its('responseBody')
       .should('have.property', 'name')
       .and('include', 'Using fixtures to represent data')
 
     // you can also just write the fixture in the route
-    cy.route('GET', 'comments/*', 'fixture:example.json').as('getComment')
+    cy.route('GET', 'comments/*', 'fixture:example.json')
+      .as('getComment')
 
     // we have code that gets a comment when
     // the button is clicked in scripts.js
-    cy.get('.fixture-btn').click()
+    cy.get('.fixture-btn')
+      .click()
 
-    cy.wait('@getComment').its('responseBody')
+    cy.wait('@getComment')
+      .its('responseBody')
       .should('have.property', 'name')
       .and('include', 'Using fixtures to represent data')
 
     // or write fx to represent fixture
     // by default it assumes it's .json
-    cy.route('GET', 'comments/*', 'fx:example').as('getComment')
+    cy.route('GET', 'comments/*', 'fx:example')
+      .as('getComment')
 
     // we have code that gets a comment when
     // the button is clicked in scripts.js
-    cy.get('.fixture-btn').click()
+    cy.get('.fixture-btn')
+      .click()
 
-    cy.wait('@getComment').its('responseBody')
+    cy.wait('@getComment')
+      .its('responseBody')
       .should('have.property', 'name')
       .and('include', 'Using fixtures to represent data')
   })
@@ -79,9 +90,10 @@ context('Files', () => {
 
     // You can read a file and yield its contents
     // The filePath is relative to your project's root.
-    cy.readFile('cypress.json').then((json) => {
-      expect(json).to.be.an('object')
-    })
+    cy.readFile('cypress.json')
+      .then((json) => {
+        expect(json).to.be.an('object')
+      })
   })
 
   it('cy.writeFile() - write to a file', () => {
@@ -96,9 +108,10 @@ context('Files', () => {
         cy.writeFile('cypress/fixtures/users.json', response.body)
       })
 
-    cy.fixture('users').should((users) => {
-      expect(users[0].name).to.exist
-    })
+    cy.fixture('users')
+      .should((users) => {
+        expect(users[0].name).to.exist
+      })
 
     // JavaScript arrays and objects are stringified
     // and formatted into text.
@@ -108,8 +121,9 @@ context('Files', () => {
       email: 'jane@example.com',
     })
 
-    cy.fixture('profile').should((profile) => {
-      expect(profile.name).to.eq('Jane')
-    })
+    cy.fixture('profile')
+      .should((profile) => {
+        expect(profile.name).to.eq('Jane')
+      })
   })
 })

@@ -28,9 +28,11 @@ context('Cypress.Commands', () => {
     })
 
     // @ts-ignore TS2339
-    cy.get('button').console('info').then(($button) => {
+    cy.get('button')
+      .console('info')
+      .then(($button) => {
       // subject is still $button
-    })
+      })
   })
 })
 
@@ -54,7 +56,8 @@ context('Cypress.Cookies', () => {
 
   it('.preserveOnce() - preserve cookies by key', () => {
     // normally cookies are reset after each test
-    cy.getCookie('fakeCookie').should('not.be.ok')
+    cy.getCookie('fakeCookie')
+      .should('not.be.ok')
 
     // preserving a cookie will not clear it when
     // the next test starts
@@ -139,8 +142,10 @@ context('Cypress.dom', () => {
 
   // https://on.cypress.io/dom
   it('.isHidden() - determine if a DOM element is hidden', () => {
-    let hiddenP = Cypress.$('.dom-p p.hidden').get(0)
-    let visibleP = Cypress.$('.dom-p p.visible').get(0)
+    let hiddenP = Cypress.$('.dom-p p.hidden')
+      .get(0)
+    let visibleP = Cypress.$('.dom-p p.visible')
+      .get(0)
 
     // our first paragraph has css class 'hidden'
     expect(Cypress.dom.isHidden(hiddenP)).to.be.true
@@ -217,6 +222,7 @@ context('Cypress.spec', () => {
   it('Get current spec information', () => {
     // https://on.cypress.io/spec
     // wrap the object so we can inspect it easily by clicking in the command log
-    cy.wrap(Cypress.spec).should('include.keys', ['name', 'relative', 'absolute'])
+    cy.wrap(Cypress.spec)
+      .should('include.keys', ['name', 'relative', 'absolute'])
   })
 })

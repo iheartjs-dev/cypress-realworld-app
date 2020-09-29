@@ -10,32 +10,33 @@ context('Network Requests', () => {
   it('cy.server() - control behavior of network requests and responses', () => {
     // https://on.cypress.io/server
 
-    cy.server().should((server) => {
+    cy.server()
+      .should((server) => {
       // the default options on server
       // you can override any of these options
-      expect(server.delay).to.eq(0)
-      expect(server.method).to.eq('GET')
-      expect(server.status).to.eq(200)
-      expect(server.headers).to.be.null
-      expect(server.response).to.be.null
-      expect(server.onRequest).to.be.undefined
-      expect(server.onResponse).to.be.undefined
-      expect(server.onAbort).to.be.undefined
+        expect(server.delay).to.eq(0)
+        expect(server.method).to.eq('GET')
+        expect(server.status).to.eq(200)
+        expect(server.headers).to.be.null
+        expect(server.response).to.be.null
+        expect(server.onRequest).to.be.undefined
+        expect(server.onResponse).to.be.undefined
+        expect(server.onAbort).to.be.undefined
 
-      // These options control the server behavior
-      // affecting all requests
+        // These options control the server behavior
+        // affecting all requests
 
-      // pass false to disable existing route stubs
-      expect(server.enable).to.be.true
-      // forces requests that don't match your routes to 404
-      expect(server.force404).to.be.false
+        // pass false to disable existing route stubs
+        expect(server.enable).to.be.true
+        // forces requests that don't match your routes to 404
+        expect(server.force404).to.be.false
 
-      if (Number(Cypress.version.charAt(0)) >= 5) {
+        if (Number(Cypress.version.charAt(0)) >= 5) {
         // ignores requests from ever being logged or stubbed
         // @ts-ignore
-        expect(server.ignore).to.be.a('function')
-      }
-    })
+          expect(server.ignore).to.be.a('function')
+        }
+      })
 
     cy.server({
       method: 'POST',
@@ -64,12 +65,14 @@ context('Network Requests', () => {
 
   it('cy.request() - verify response using BDD syntax', () => {
     cy.request('https://jsonplaceholder.cypress.io/comments')
-    .then((response) => {
+      .then((response) => {
       // https://on.cypress.io/assertions
-      expect(response).property('status').to.equal(200)
-      expect(response).property('body').to.have.property('length').and.be.oneOf([500, 501])
-      expect(response).to.include.keys('headers', 'duration')
-    })
+        expect(response)
+          .property('status').to.equal(200)
+        expect(response)
+          .property('body').to.have.property('length').and.be.oneOf([500, 501])
+        expect(response).to.include.keys('headers', 'duration')
+      })
   })
 
   it('cy.request() with query parameters', () => {
@@ -82,14 +85,14 @@ context('Network Requests', () => {
         id: 3,
       },
     })
-    .its('body')
-    .should('be.an', 'array')
-    .and('have.length', 1)
-    .its('0') // yields first element of the array
-    .should('contain', {
-      postId: 1,
-      id: 3,
-    })
+      .its('body')
+      .should('be.an', 'array')
+      .and('have.length', 1)
+      .its('0') // yields first element of the array
+      .should('contain', {
+        postId: 1,
+        id: 3,
+      })
   })
 
   it('cy.request() - pass result to the second request', () => {
@@ -101,7 +104,8 @@ context('Network Requests', () => {
       // can be written as its('body.0')
       // if you do not care about TypeScript checks
       .then((user) => {
-        expect(user).property('id').to.be.a('number')
+        expect(user)
+          .property('id').to.be.a('number')
         // make a new post on behalf of the user
         cy.request('POST', 'https://jsonplaceholder.cypress.io/posts', {
           userId: user.id,
@@ -112,26 +116,31 @@ context('Network Requests', () => {
       // note that the value here is the returned value of the 2nd request
       // which is the new post object
       .then((response) => {
-        expect(response).property('status').to.equal(201) // new entity created
-        expect(response).property('body').to.contain({
-          title: 'Cypress Test Runner',
-        })
+        expect(response)
+          .property('status').to.equal(201) // new entity created
+        expect(response)
+          .property('body').to.contain({
+            title: 'Cypress Test Runner',
+          })
 
         // we don't know the exact post id - only that it will be > 100
         // since JSONPlaceholder has built-in 100 posts
-        expect(response.body).property('id').to.be.a('number')
+        expect(response.body)
+          .property('id').to.be.a('number')
           .and.to.be.gt(100)
 
         // we don't know the user id here - since it was in above closure
         // so in this test just confirm that the property is there
-        expect(response.body).property('userId').to.be.a('number')
+        expect(response.body)
+          .property('userId').to.be.a('number')
       })
   })
 
   it('cy.request() - save response in the shared test context', () => {
     // https://on.cypress.io/variables-and-aliases
     cy.request('https://jsonplaceholder.cypress.io/users?_limit=1')
-      .its('body').its('0') // yields the first element of the returned list
+      .its('body')
+      .its('0') // yields the first element of the returned list
       .as('user') // saves the object in the test context
       .then(function () {
         // NOTE 👀
@@ -145,13 +154,15 @@ context('Network Requests', () => {
           title: 'Cypress Test Runner',
           body: 'Fast, easy and reliable testing for anything that runs in a browser.',
         })
-        .its('body').as('post') // save the new post from the response
+          .its('body')
+          .as('post') // save the new post from the response
       })
       .then(function () {
         // When this callback runs, both "cy.request" API commands have finished
         // and the test context has "user" and "post" objects set.
         // Let's verify them.
-        expect(this.post, 'post has the right user id').property('userId').to.equal(this.user.id)
+        expect(this.post, 'post has the right user id')
+          .property('userId').to.equal(this.user.id)
       })
   })
 
@@ -163,26 +174,33 @@ context('Network Requests', () => {
     cy.server()
 
     // Listen to GET to comments/1
-    cy.route('GET', 'comments/*').as('getComment')
+    cy.route('GET', 'comments/*')
+      .as('getComment')
 
     // we have code that gets a comment when
     // the button is clicked in scripts.js
-    cy.get('.network-btn').click()
+    cy.get('.network-btn')
+      .click()
 
     // https://on.cypress.io/wait
-    cy.wait('@getComment').its('status').should('eq', 200)
+    cy.wait('@getComment')
+      .its('status')
+      .should('eq', 200)
 
     // Listen to POST to comments
-    cy.route('POST', '/comments').as('postComment')
+    cy.route('POST', '/comments')
+      .as('postComment')
 
     // we have code that posts a comment when
     // the button is clicked in scripts.js
-    cy.get('.network-post').click()
-    cy.wait('@postComment').should((xhr) => {
-      expect(xhr.requestBody).to.include('email')
-      expect(xhr.requestHeaders).to.have.property('Content-Type')
-      expect(xhr.responseBody).to.have.property('name', 'Using POST in cy.route()')
-    })
+    cy.get('.network-post')
+      .click()
+    cy.wait('@postComment')
+      .should((xhr) => {
+        expect(xhr.requestBody).to.include('email')
+        expect(xhr.requestHeaders).to.have.property('Content-Type')
+        expect(xhr.responseBody).to.have.property('name', 'Using POST in cy.route()')
+      })
 
     // Stub a response to PUT comments/ ****
     cy.route({
@@ -191,15 +209,18 @@ context('Network Requests', () => {
       status: 404,
       response: { error: message },
       delay: 500,
-    }).as('putComment')
+    })
+      .as('putComment')
 
     // we have code that puts a comment when
     // the button is clicked in scripts.js
-    cy.get('.network-put').click()
+    cy.get('.network-put')
+      .click()
 
     cy.wait('@putComment')
 
     // our 404 statusCode logic in scripts.js executed
-    cy.get('.network-put-comment').should('contain', message)
+    cy.get('.network-put-comment')
+      .should('contain', message)
   })
 })

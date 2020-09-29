@@ -26,7 +26,8 @@ context('Connectors', () => {
     // $('.connectors-div').hide()
 
     // https://on.cypress.io/invoke
-    cy.get('.connectors-div').should('be.hidden')
+    cy.get('.connectors-div')
+      .should('be.hidden')
       // call the jquery method 'show' on the 'div.container'
       .invoke('show')
       .should('be.visible')
@@ -36,11 +37,12 @@ context('Connectors', () => {
     // https://on.cypress.io/spread
     const arr = ['foo', 'bar', 'baz']
 
-    cy.wrap(arr).spread((foo, bar, baz) => {
-      expect(foo).to.eq('foo')
-      expect(bar).to.eq('bar')
-      expect(baz).to.eq('baz')
-    })
+    cy.wrap(arr)
+      .spread((foo, bar, baz) => {
+        expect(foo).to.eq('foo')
+        expect(bar).to.eq('bar')
+        expect(baz).to.eq('baz')
+      })
   })
 
   describe('.then()', () => {

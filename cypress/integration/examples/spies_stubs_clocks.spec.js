@@ -11,7 +11,8 @@ context('Spies, Stubs, and Clock', () => {
       foo () {},
     }
 
-    const spy = cy.spy(obj, 'foo').as('anyArgs')
+    const spy = cy.spy(obj, 'foo')
+      .as('anyArgs')
 
     obj.foo()
 
@@ -31,7 +32,8 @@ context('Spies, Stubs, and Clock', () => {
       },
     }
 
-    cy.spy(obj, 'foo').as('foo')
+    cy.spy(obj, 'foo')
+      .as('foo')
 
     setTimeout(() => {
       obj.foo('first')
@@ -41,7 +43,8 @@ context('Spies, Stubs, and Clock', () => {
       obj.foo('second')
     }, 2500)
 
-    cy.get('@foo').should('have.been.calledTwice')
+    cy.get('@foo')
+      .should('have.been.calledTwice')
   })
 
   it('cy.stub() - create a stub and/or replace a function with stub', () => {
@@ -59,7 +62,8 @@ context('Spies, Stubs, and Clock', () => {
       },
     }
 
-    const stub = cy.stub(obj, 'foo').as('foo')
+    const stub = cy.stub(obj, 'foo')
+      .as('foo')
 
     obj.foo('foo', 'bar')
 
@@ -71,11 +75,13 @@ context('Spies, Stubs, and Clock', () => {
 
     // create the date in UTC so its always the same
     // no matter what local timezone the browser is running in
-    const now = new Date(Date.UTC(2017, 2, 14)).getTime()
+    const now = new Date(Date.UTC(2017, 2, 14))
+      .getTime()
 
     cy.clock(now)
     cy.visit('https://example.cypress.io/commands/spies-stubs-clocks')
-    cy.get('#clock-div').click()
+    cy.get('#clock-div')
+      .click()
       .should('have.text', '1489449600')
   })
 
@@ -84,15 +90,18 @@ context('Spies, Stubs, and Clock', () => {
 
     // create the date in UTC so its always the same
     // no matter what local timezone the browser is running in
-    const now = new Date(Date.UTC(2017, 2, 14)).getTime()
+    const now = new Date(Date.UTC(2017, 2, 14))
+      .getTime()
 
     cy.clock(now)
     cy.visit('https://example.cypress.io/commands/spies-stubs-clocks')
-    cy.get('#tick-div').click()
+    cy.get('#tick-div')
+      .click()
       .should('have.text', '1489449600')
 
     cy.tick(10000) // 10 seconds passed
-    cy.get('#tick-div').click()
+    cy.get('#tick-div')
+      .click()
       .should('have.text', '1489449610')
   })
 
@@ -111,8 +120,10 @@ context('Spies, Stubs, and Clock', () => {
 
     cy.stub(greeter, 'greet')
       .callThrough() // if you want non-matched calls to call the real method
-      .withArgs(Cypress.sinon.match.string).returns('Hi')
-      .withArgs(Cypress.sinon.match.number).throws(new Error('Invalid name'))
+      .withArgs(Cypress.sinon.match.string)
+      .returns('Hi')
+      .withArgs(Cypress.sinon.match.number)
+      .throws(new Error('Invalid name'))
 
     expect(greeter.greet('World')).to.equal('Hi')
     // @ts-ignore
@@ -138,7 +149,8 @@ context('Spies, Stubs, and Clock', () => {
       },
     }
 
-    const spy = cy.spy(calculator, 'add').as('add')
+    const spy = cy.spy(calculator, 'add')
+      .as('add')
 
     expect(calculator.add(2, 3)).to.equal(5)
 
@@ -185,21 +197,25 @@ context('Spies, Stubs, and Clock', () => {
     // you can combine several matchers using "and", "or"
     expect(spy).to.be.calledWith(
       Cypress.sinon.match.number,
-      Cypress.sinon.match(isGreaterThan(2), '> 2').and(Cypress.sinon.match(isLessThan(4), '< 4')),
+      Cypress.sinon.match(isGreaterThan(2), '> 2')
+        .and(Cypress.sinon.match(isLessThan(4), '< 4')),
     )
 
     expect(spy).to.be.calledWith(
       Cypress.sinon.match.number,
-      Cypress.sinon.match(isGreaterThan(200), '> 200').or(Cypress.sinon.match(3)),
+      Cypress.sinon.match(isGreaterThan(200), '> 200')
+        .or(Cypress.sinon.match(3)),
     )
 
     // matchers can be used from BDD assertions
-    cy.get('@add').should('have.been.calledWith',
-      Cypress.sinon.match.number, Cypress.sinon.match(3))
+    cy.get('@add')
+      .should('have.been.calledWith',
+        Cypress.sinon.match.number, Cypress.sinon.match(3))
 
     // you can alias matchers for shorter test code
     const { match: M } = Cypress.sinon
 
-    cy.get('@add').should('have.been.calledWith', M.number, M(3))
+    cy.get('@add')
+      .should('have.been.calledWith', M.number, M(3))
   })
 })

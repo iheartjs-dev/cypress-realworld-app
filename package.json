@@ -160,7 +160,21 @@
       "prettier"
     ],
     "rules": {
-      "no-unused-expressions": 0
+      "no-unused-expressions": 0,
+      "newline-per-chained-call": [
+        "warn",
+        {
+          "ignoreChainWithDepth": 1
+        }
+      ],
+      "quotes": [
+        "warn",
+        "single"
+      ],
+      "indent": [
+        "warn",
+        2
+      ]
     }
   },
   "jest": {

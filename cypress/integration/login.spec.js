@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('login', () => {
   it('login with username and password', () => {
     cy.visit('localhost:3000/signin')

@@ -1,6 +1,6 @@
 describe('sign in', () => {
   it('sign in with username and password', () => {
-    cy.visit('/signin')
+    cy.visit('localhost:3000/signin')
     cy.get('#username')
       .type('Allie2')
     cy.get('#password')

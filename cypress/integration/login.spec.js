@@ -5,7 +5,7 @@ describe('sign in', () => {
       .type('Allie2')
     cy.get('#password')
       .type('s3cret')
-    cy.get('button:contains("Sign In")')
+    cy.contains('button', 'Sign In')
       .click()
   })
 })

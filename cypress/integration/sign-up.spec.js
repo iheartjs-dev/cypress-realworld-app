@@ -1,5 +1,5 @@
 describe('sign up', () => {
-  it('sign up, login as new user', () => {
+  it('sign up, login as new user, see dialog', () => {
     cy.visit('signup')
     cy.get('#firstName')
       .type('Mike')
@@ -19,5 +19,9 @@ describe('sign up', () => {
       .type('password')
     cy.contains('button', 'Sign In')
       .click()
+    cy.url()
+      .should('equal', 'http://localhost:3000/')
+    cy.contains('[role=dialog]', 'Get Started with Real World App')
+      .should('be.visible')
   })
 })

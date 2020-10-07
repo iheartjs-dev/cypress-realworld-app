@@ -1,5 +1,5 @@
 describe('sign up', () => {
-  it('sign up and login as new user', () => {
+  it('sign up, login as new user', () => {
     cy.visit('signup')
     cy.get('#firstName')
       .type('Mike')
@@ -12,6 +12,12 @@ describe('sign up', () => {
     cy.get('#confirmPassword')
       .type('password')
     cy.contains('button', 'Sign Up')
+      .click()
+    cy.get('#username')
+      .type('MikeC')
+    cy.get('#password')
+      .type('password')
+    cy.contains('button', 'Sign In')
       .click()
   })
 })

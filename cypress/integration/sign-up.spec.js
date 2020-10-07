@@ -1,0 +1,17 @@
+describe('sign up', () => {
+  it('sign up and login as new user', () => {
+    cy.visit('signup')
+    cy.get('#firstName')
+      .type('Mike')
+    cy.get('#lastName')
+      .type('C')
+    cy.get('#username')
+      .type('MikeC')
+    cy.get('#password')
+      .type('password')
+    cy.get('#confirmPassword')
+      .type('password')
+    cy.contains('button', 'Sign Up')
+      .click()
+  })
+})

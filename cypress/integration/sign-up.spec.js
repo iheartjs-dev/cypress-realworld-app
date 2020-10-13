@@ -6,7 +6,7 @@ describe('sign up', () => {
     cy.get('#lastName')
       .type('C')
     cy.get('#username')
-      .type('MikeC')
+      .type(Date.now())
     cy.get('#password')
       .type('password')
     cy.get('#confirmPassword')

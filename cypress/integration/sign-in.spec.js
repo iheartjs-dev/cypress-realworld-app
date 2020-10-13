@@ -36,6 +36,8 @@ describe('sign in', () => {
       .and('not.have.class', 'Mui-disabled')
       .click()
     cy.wait('@login')
+    cy.location('pathname')
+      .should('equal', '/')
     cy.wait('@getBankAccounts')
     cy.wait('@getPublicTransactions')
     cy.wait('@getNotifications')

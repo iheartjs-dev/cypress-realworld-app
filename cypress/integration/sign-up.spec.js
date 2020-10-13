@@ -4,7 +4,7 @@ describe('sign up', () => {
     lastName: 'C',
     username: Date.now(),
     password: 'password',
-    baseUrl: 'http://localhost:3000'
+    baseUrl: Cypress.config('baseUrl')
   }
   it('sign up, login as new user, see dialog', () => {
     cy.visit('signup')

@@ -4,6 +4,16 @@ describe('sign in', () => {
     password: 's3cret'
   }
   it('sign in with username and password', () => {
+    cy.server()
+    cy.route('POST', '/login')
+      .as('login')
+    cy.route('GET', '/bankAccounts')
+      .as('getBankAccounts')
+    cy.route('GET', '/transactions/public')
+      .as('getPublicTransactions')
+    cy.route('GET', '/notifications')
+      .as('getNotifications')
+
     cy.visit('/signin')
     cy.get('#username')
       .type(data.username)

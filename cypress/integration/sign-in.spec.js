@@ -19,6 +19,8 @@ describe('sign in', () => {
       .check()
     cy.get('[data-test="signin-remember-me"]')
       .should('have.class', 'Mui-checked')
+    cy.contains('a', 'Don\'t have an account? Sign Up')
+      .should('have.attr', 'href', '/signup')
     cy.contains('button', 'Sign In')
       .should('not.be.disabled')
       .and('not.have.class', 'Mui-disabled')

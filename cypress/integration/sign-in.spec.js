@@ -38,8 +38,10 @@ describe('sign in', () => {
     cy.wait('@login')
     cy.location('pathname')
       .should('equal', '/')
-    cy.wait('@getBankAccounts')
-    cy.wait('@getPublicTransactions')
-    cy.wait('@getNotifications')
+    cy.wait([
+      '@getBankAccounts',
+      '@getPublicTransactions',
+      '@getNotifications'
+    ])
   })
 })

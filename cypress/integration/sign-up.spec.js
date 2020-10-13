@@ -7,6 +7,18 @@ describe('sign up', () => {
     baseUrl: Cypress.config('baseUrl')
   }
   it('sign up, login as new user, see dialog', () => {
+    cy.server()
+    cy.route('POST', '/users')
+      .as('createUser')
+    cy.route('POST', '/login')
+      .as('login')
+    cy.route('GET', '/bankAccounts')
+      .as('getBankAccounts')
+    cy.route('GET', '/transactions/public')
+      .as('getPublicTransactions')
+    cy.route('GET', '/notifications')
+      .as('getNotifications')
+
     cy.visit('signup')
     cy.get('#firstName')
       .type(data.firstName)

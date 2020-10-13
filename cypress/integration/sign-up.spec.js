@@ -1,26 +1,33 @@
 describe('sign up', () => {
+  const data = {
+    firstName: 'Mike',
+    lastName: 'C',
+    username: Date.now(),
+    password: 'password',
+    baseUrl: 'http://localhost:3000'
+  }
   it('sign up, login as new user, see dialog', () => {
     cy.visit('signup')
     cy.get('#firstName')
-      .type('Mike')
+      .type(data.firstName)
     cy.get('#lastName')
-      .type('C')
+      .type(data.lastName)
     cy.get('#username')
-      .type(Date.now())
+      .type(data.username)
     cy.get('#password')
-      .type('password')
+      .type(data.password)
     cy.get('#confirmPassword')
-      .type('password')
+      .type(data.password)
     cy.contains('button', 'Sign Up')
       .click()
     cy.get('#username')
-      .type('MikeC')
+      .type(data.username)
     cy.get('#password')
-      .type('password')
+      .type(data.password)
     cy.contains('button', 'Sign In')
       .click()
     cy.url()
-      .should('equal', 'http://localhost:3000/')
+      .should('equal', data.baseUrl + '/')
     cy.contains('[role=dialog]', 'Get Started with Real World App')
       .should('be.visible')
   })

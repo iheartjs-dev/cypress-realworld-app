@@ -1,13 +1,17 @@
 describe('sign in', () => {
+  const data = {
+    username: 'Allie2',
+    password: 's3cret'
+  }
   it('sign in with username and password', () => {
     cy.visit('/signin')
     cy.get('#username')
-      .type('Allie2')
+      .type(data.username)
     cy.contains('button', 'Sign In')
       .should('be.disabled')
       .and('have.class', 'Mui-disabled')
     cy.get('#password')
-      .type('s3cret')
+      .type(data.password)
     cy.get('[data-test="signin-remember-me"]')
       .should('not.have.class', 'Mui-checked')
     cy.get('[data-test="signin-remember-me"] input')

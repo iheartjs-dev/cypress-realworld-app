@@ -36,6 +36,13 @@ describe('sign in', () => {
       .and('not.have.class', 'Mui-disabled')
       .click()
     cy.wait('@login')
+      .its('request.body')
+      .should('deep.equal', {
+        username: data.username,
+        password: data.password,
+        remember: true,
+        type: 'LOGIN'
+      })
     cy.location('pathname')
       .should('equal', '/')
     cy.wait([

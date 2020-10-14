@@ -4,7 +4,10 @@ describe('sign up', () => {
     lastName: 'C',
     username: Date.now(),
     password: 'password',
-    baseUrl: Cypress.config('baseUrl')
+    baseUrl: Cypress.config('baseUrl'),
+    bankName: 'Farrs Wellgo',
+    routingNumber: '123456789',
+    accountNumber: '123456789'
   }
   before('setup routes', () => {
     cy.server()
@@ -18,8 +21,10 @@ describe('sign up', () => {
       .as('getPublicTransactions')
     cy.route('GET', '/notifications')
       .as('getNotifications')
+    cy.route('POST', '/bankAccounts')
+      .as('createBankAccount')
   })
-  it('sign up, login as new user, see dialog', () => {
+  it('sign up, login as new user, complete wizard', () => {
     cy.visit('signup')
     cy.get('#firstName')
       .type(data.firstName)
@@ -48,5 +53,23 @@ describe('sign up', () => {
     cy.wait('@getNotifications')
     cy.contains('[role=dialog]', 'Get Started with Real World App')
       .should('be.visible')
+    cy.contains('button', 'Next')
+      .click()
+    cy.get('#bankaccount-bankName-input')
+      .type(data.bankName)
+    cy.get('#bankaccount-routingNumber-input')
+      .type(data.routingNumber)
+    cy.get('#bankaccount-accountNumber-input')
+      .type(data.accountNumber)
+    cy.contains('button', 'Save')
+      .click()
+    cy.wait([
+      '@createBankAccount',
+      '@getBankAccounts'
+    ])
+    cy.contains('button', 'Done')
+      .click()
+    cy.get('[role=dialog]')
+      .should('not.exist')
   })
 })

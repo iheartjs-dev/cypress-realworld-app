@@ -17,21 +17,29 @@ describe('home', () => {
       .as('logout')
   })
   before('sign in', () => {
-    cy.visit('/signin')
-    cy.get('#username')
-      .type(data.username)
-    cy.get('#password')
-      .type(data.password)
-    cy.contains('button', 'Sign In')
-      .click()
-    cy.wait('@login')
-    cy.location('pathname')
-      .should('equal', '/')
-    cy.wait([
-      '@getBankAccounts',
-      '@getPublicTransactions',
-      '@getNotifications'
-    ])
+    cy.request({
+      method: 'POST',
+      url: '/login',
+      body: {
+        type: 'LOGIN',
+        username: data.username,
+        password: data.password,
+        remember: true
+      },
+    })
+      .its('body.user')
+      .then(user => {
+        const authState = {
+          value: 'authorized',
+          context: { user },
+          _event: {},
+          event: {
+            data: { user }
+          }
+        }
+        window.localStorage.setItem('authState', JSON.stringify(authState))
+      })
+    cy.visit('/')
   })
   it('log out', () => {
     cy.contains('Logout')

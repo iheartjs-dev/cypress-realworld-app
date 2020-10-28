@@ -13,6 +13,8 @@ describe('home', () => {
       .as('getPublicTransactions')
     cy.route('GET', '/notifications')
       .as('getNotifications')
+    cy.route('POST', '/logout')
+      .as('logout')
   })
   before('sign in', () => {
     cy.visit('/signin')
@@ -34,5 +36,8 @@ describe('home', () => {
   it('log out', () => {
     cy.contains('Logout')
       .click()
+    cy.wait('@logout')
+    cy.location('pathname')
+      .should('equal', '/signin')
   })
 })

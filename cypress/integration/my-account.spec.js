@@ -1,7 +1,7 @@
 describe('My Account', () => {
   const data = {
-    username: 'Allie2',
-    password: 's3cret',
+    username: Cypress.env('username'),
+    password: Cypress.env('password'),
     email: 'kaylin.homenick@gmail.com'
   }
   beforeEach('sign in', () => {

@@ -3,7 +3,7 @@ describe('home', () => {
     username: 'Allie2',
     password: 's3cret'
   }
-  before('setup routes', () => {
+  beforeEach('setup routes', () => {
     cy.server()
     cy.route('POST', '/login')
       .as('login')
@@ -16,7 +16,7 @@ describe('home', () => {
     cy.route('POST', '/logout')
       .as('logout')
   })
-  before('sign in', () => {
+  beforeEach('sign in', () => {
     cy.request({
       method: 'POST',
       url: '/login',

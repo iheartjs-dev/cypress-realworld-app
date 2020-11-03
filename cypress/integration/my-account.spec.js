@@ -1,12 +1,8 @@
 describe('My Account', () => {
   const data = {
-    username: Cypress.env('username'),
-    password: Cypress.env('password'),
     email: 'kaylin.homenick@gmail.com'
   }
-  beforeEach('sign in', () => {
-    signIn(data.username, data.password)
-  })
+
   beforeEach('setup routes', () => {
     setupRoutes()
   })
@@ -32,31 +28,6 @@ describe('My Account', () => {
   })
 })
 
-function signIn(username, password) {
-  cy.request({
-    method: 'POST',
-    url: '/login',
-    body: {
-      type: 'LOGIN',
-      username: username,
-      password: password,
-      remember: true
-    },
-  })
-    .its('body.user')
-    .then(user => {
-      const authState = {
-        value: 'authorized',
-        context: { user },
-        _event: {},
-        event: {
-          data: { user }
-        }
-      }
-      window.localStorage.setItem('authState', JSON.stringify(authState))
-    })
-}
-
 function setupRoutes() {
   cy.server()
   cy.route('POST', '/login')
@@ -73,4 +44,5 @@ function setupRoutes() {
     .as('updateUser')
   cy.route('GET', '/checkAuth')
     .as('checkAuth')
+
 }

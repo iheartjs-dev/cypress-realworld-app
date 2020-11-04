@@ -1,11 +1,7 @@
 export function signIn(username, password) {
   const log = Cypress.log({
-    consoleProps() {
-      return {
-        username,
-        password
-      }
-    }
+    message: `signing in as ${username}`,
+    consoleProps: () => ({ username, password })
   })
   cy.request({
     method: 'POST',
@@ -16,20 +12,17 @@ export function signIn(username, password) {
       password: password,
       remember: true
     },
+    log: false
   })
     .then(response => {
+      const props = log.get('consoleProps')()
       log.set({
-        consoleProps() {
-          return {
-            username,
-            password,
-            response
-          }
-        }
+        message: `signed in as ${username}`,
+        consoleProps: () => ({ ...props, response })
       })
       return response
     })
-    .its('body.user')
+    .its('body.user', { log: false })
     .then(user => {
       const authState = {
         value: 'authorized',
@@ -40,5 +33,9 @@ export function signIn(username, password) {
         }
       }
       window.localStorage.setItem('authState', JSON.stringify(authState))
+      const props = log.get('consoleProps')()
+      log.set({
+        consoleProps: () => ({ ...props, authState })
+      })
     })
 }

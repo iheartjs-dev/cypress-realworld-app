@@ -4,7 +4,7 @@ describe('My Account', () => {
   }
 
   beforeEach('setup routes', () => {
-    setupRoutes()
+    cy.setupRoutes()
   })
 
   beforeEach('nav to My Account', () => {
@@ -27,22 +27,3 @@ describe('My Account', () => {
     cy.wait('@checkAuth')
   })
 })
-
-function setupRoutes() {
-  cy.server()
-  cy.route('POST', '/login')
-    .as('login')
-  cy.route('GET', '/bankAccounts')
-    .as('getBankAccounts')
-  cy.route('GET', '/transactions/public')
-    .as('getPublicTransactions')
-  cy.route('GET', '/notifications')
-    .as('getNotifications')
-  cy.route('POST', '/logout')
-    .as('logout')
-  cy.route('PATCH', '/users/*')
-    .as('updateUser')
-  cy.route('GET', '/checkAuth')
-    .as('checkAuth')
-
-}

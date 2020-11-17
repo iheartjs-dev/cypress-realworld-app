@@ -22,3 +22,7 @@ import './commands'
 beforeEach('sign in', () => {
   cy.signIn(Cypress.env('username'), Cypress.env('password'))
 })
+
+beforeEach('set up routes', () => {
+  cy.setupRoutes()
+})

@@ -3,10 +3,6 @@ describe('My Account', () => {
     email: 'kaylin.homenick@gmail.com'
   }
 
-  beforeEach('setup routes', () => {
-    cy.setupRoutes()
-  })
-
   beforeEach('nav to My Account', () => {
     cy.visit('/user/settings')
     cy.wait([

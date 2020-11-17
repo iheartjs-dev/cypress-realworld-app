@@ -1,9 +1,17 @@
+/**
+ * @function signIn
+ * @description sign in to app
+ * @memberof Cypress.Chainable custom cypress command
+ * @param {string} username username
+ * @param {string} password password
+ * @returns {Cypress.Chainable} subject of the command
+ */
 export function signIn(username, password) {
   const log = Cypress.log({
     message: `signing in as ${username}`,
     consoleProps: () => ({ username, password })
   })
-  cy.request({
+  return cy.request({
     method: 'POST',
     url: '/login',
     body: {

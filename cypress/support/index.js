@@ -19,10 +19,26 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-beforeEach('sign in', () => {
-  cy.signIn(Cypress.env('username'), Cypress.env('password'))
-})
-
 beforeEach('set up routes', () => {
   cy.setupRoutes()
 })
+
+beforeEach('sign in', () => {
+  const currentSpecName = getCurrentSpecName(Cypress)
+  const excludedSpecs = ['sign-in', 'sign-up']
+  const isSuiteNotExcluded = !excludedSpecs.includes(currentSpecName)
+  if (isSuiteNotExcluded) {
+    cy.signIn(Cypress.env('username'), Cypress.env('password'))
+  }
+})
+
+function getCurrentSpecName(Cypress) {
+  const fileName = Cypress.spec.name
+  return trimFileExtension(fileName)
+}
+
+function trimFileExtension(fileName) {
+  return fileName
+    .split('.')
+    .shift()
+}

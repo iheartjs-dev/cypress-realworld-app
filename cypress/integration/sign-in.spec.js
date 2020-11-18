@@ -1,7 +1,7 @@
 describe('sign in', () => {
   const data = {
-    username: 'Allie2',
-    password: 's3cret'
+    username: Cypress.env('username'),
+    password: Cypress.env('password')
   }
   it('sign in with username and password', () => {
     cy.visit('/signin')

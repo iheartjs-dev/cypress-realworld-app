@@ -9,21 +9,6 @@ describe('sign up', () => {
     routingNumber: '123456789',
     accountNumber: '123456789'
   }
-  before('setup routes', () => {
-    cy.server()
-    cy.route('POST', '/users')
-      .as('createUser')
-    cy.route('POST', '/login')
-      .as('login')
-    cy.route('GET', '/bankAccounts')
-      .as('getBankAccounts')
-    cy.route('GET', '/transactions/public')
-      .as('getPublicTransactions')
-    cy.route('GET', '/notifications')
-      .as('getNotifications')
-    cy.route('POST', '/bankAccounts')
-      .as('createBankAccount')
-  })
   it('sign up, login as new user, complete wizard', () => {
     cy.visit('signup')
     cy.get('#firstName')

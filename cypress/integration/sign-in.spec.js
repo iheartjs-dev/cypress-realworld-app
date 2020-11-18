@@ -3,17 +3,6 @@ describe('sign in', () => {
     username: 'Allie2',
     password: 's3cret'
   }
-  before('setup routes', () => {
-    cy.server()
-    cy.route('POST', '/login')
-      .as('login')
-    cy.route('GET', '/bankAccounts')
-      .as('getBankAccounts')
-    cy.route('GET', '/transactions/public')
-      .as('getPublicTransactions')
-    cy.route('GET', '/notifications')
-      .as('getNotifications')
-  })
   it('sign in with username and password', () => {
     cy.visit('/signin')
     cy.get('#username')

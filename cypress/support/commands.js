@@ -29,6 +29,10 @@ import { signIn } from './auth'
 Cypress.Commands.add('signIn', signIn)
 Cypress.Commands.add('setupRoutes', () => {
   cy.server()
+  cy.route('POST', '/users')
+    .as('createUser')
+  cy.route('POST', '/bankAccounts')
+    .as('createBankAccount')
   cy.route('POST', '/login')
     .as('login')
   cy.route('GET', '/bankAccounts')

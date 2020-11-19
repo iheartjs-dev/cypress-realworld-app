@@ -1,21 +1,23 @@
 describe('home', () => {
-  const data = {
-    username: Cypress.env('username'),
-    fullName: 'Kaylin H'
-  }
-
-  beforeEach('navigate to Home', () => {
+  beforeEach('nav to Home', () => {
     cy.visit('/')
   })
 
   describe('side nav', () => {
     it('name, handle and avatar are visible', () => {
-      cy.get('[data-test=sidenav-user-full-name]')
-        .should('be.visible')
-        .and('have.text', data.fullName)
-      cy.get('[data-test=sidenav-username]')
-        .should('be.visible')
-        .and('contain.text', data.username)
+      cy.get('@user')
+        .then(user => {
+          const data = {
+            username: Cypress.env('username'),
+            fullName: getFullName(user.firstName, user.lastName)
+          }
+          cy.get('[data-test=sidenav-user-full-name]')
+            .should('be.visible')
+            .and('have.text', data.fullName)
+          cy.get('[data-test=sidenav-username]')
+            .should('be.visible')
+            .and('contain.text', data.username)
+        })
     })
     it('balance amount and its subtitle are visible', () => {
       cy.get('[data-test=sidenav-user-balance]')
@@ -48,3 +50,7 @@ describe('home', () => {
     it('all tabs are visible, links are correct')
   })
 })
+
+function getFullName(firstName, lastName) {
+  return `${firstName} ${lastName.charAt(0)}`
+}

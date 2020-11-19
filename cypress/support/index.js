@@ -29,6 +29,7 @@ beforeEach('sign in', () => {
   const isSuiteNotExcluded = !excludedSpecs.includes(currentSpecName)
   if (isSuiteNotExcluded) {
     cy.signIn(Cypress.env('username'), Cypress.env('password'))
+      .as('user')
   }
 })
 

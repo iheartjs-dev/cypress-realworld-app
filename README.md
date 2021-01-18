@@ -20,7 +20,7 @@
   <a href="https://percy.io/cypress-io/cypress-realworld-app">
     <img src="https://percy.io/static/images/percy-badge.svg" />
   </a>
-  
+
    <a href="#contributors-">
     <img src="https://img.shields.io/badge/all_contributors-6-green.svg?style=flat" />
   </a>
@@ -44,11 +44,11 @@ A payment application to demonstrate <strong>real-world</strong> usage of <a hre
 
 ## Features
 
-🛠 Built with [React][reactjs], [XState][xstate], [Express][express], [lowdb][lowdb], [Material-UI][material-ui] and [TypeScript][typescript]  
-⚡️ Zero database dependencies  
-🚀 Full-stack [Express][express]/[React][reactjs] application with real-world features and tests  
-👮‍♂️ Local Authentication  
-🔥 Database Seeding with End-to-end Tests  
+🛠 Built with [React][reactjs], [XState][xstate], [Express][express], [lowdb][lowdb], [Material-UI][material-ui] and [TypeScript][typescript]
+⚡️ Zero database dependencies
+🚀 Full-stack [Express][express]/[React][reactjs] application with real-world features and tests
+👮‍♂️ Local Authentication
+🔥 Database Seeding with End-to-end Tests
 💻 CI/CD + [Cypress Dashboard][cypressdashboard]
 
 ## Getting Started
@@ -70,19 +70,19 @@ TypeScript will be added as a local dependency to the project, so no need to ins
 ### Installation
 
 ```shell
-yarn install
+npm install
 ```
 
 ### Run the app
 
 ```shell
-yarn dev
+npm run dev
 ```
 
 ### Start Cypress
 
 ```shell
-yarn cypress:open
+npm run cypress:open
 ```
 
 ## Tests
@@ -97,13 +97,13 @@ yarn cypress:open
 
 - The local JSON database located in [data/database.json](./data/database.json) and is managed with [lowdb].
 
-- The database is [reseeded](./data/dev-seed.json) each time the application is started (via `yarn dev`). Database seeding is done in between each [Cypress End-to-End test](./cypress/tests).
+- The database is [reseeded](./data/dev-seed.json) each time the application is started (via `npm run dev`). Database seeding is done in between each [Cypress End-to-End test](./cypress/tests).
 
 - Updates via the React frontend are sent to the [Express][express] server and handled by a set of [database utilities](backend/database.ts)
 
-- Generate a new database using `yarn db:seed`.
+- Generate a new database using `npm run db:seed`.
 
-- An [empty database seed](./data/empty-seed.json) is provided along with a script (`yarn start:empty`) to view the application without data.
+- An [empty database seed](./data/empty-seed.json) is provided along with a script (`npm run start:empty`) to view the application without data.
 
 ## Additional NPM Scripts
 
@@ -125,7 +125,7 @@ The Cypress Real-World App uses the [@cypress/code-coverage](https://github.com/
 
 To generate a code coverage report:
 
-1. Run `yarn cypress:run --env coverage=true` and wait for the test run to complete.
+1. Run `npm run cypress:run --env coverage=true` and wait for the test run to complete.
 2. Once the test run is complete, you can view the report at `coverage/index.html`.
 
 ## License

@@ -60,6 +60,7 @@ The app is bundled with [example data](./data/database.json) (`data/database.jso
 > 🚩 **Note**
 >
 > You can login to the app with any of the [example app users](./data/database.json#L2). The default password for all users is `s3cret`.
+> Example users can be seen by running `npm run list:dev:users`.
 
 ### Prerequisites
 
@@ -134,7 +135,7 @@ To generate a code coverage report:
 
 This project is licensed under the terms of the [MIT license](/LICENSE).
 
-[reactjs]: https://reactjs.**org**
+[reactjs]: https://reactjs.org
 [xstate]: https://xstate.js.org
 [express]: https://expressjs.com
 [lowdb]: https://github.com/typicode/lowdb

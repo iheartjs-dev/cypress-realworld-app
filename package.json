@@ -21,7 +21,6 @@
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.56",
-    "@percy/cypress": "2.3.1",
     "@types/bcryptjs": "2.4.2",
     "@types/bluebird": "3.5.32",
     "@types/connect-flash": "0.0.35",
@@ -183,14 +182,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "percy": {
-    "version": 1,
-    "snapshot": {
-      "widths": [
-        1280
-      ]
-    }
   },
   "nyc": {
     "exclude": [
